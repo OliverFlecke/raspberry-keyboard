@@ -76,16 +76,7 @@ function onKeyDown(evt) {
     location = 'right';
   }
   
-  const data = {
-    metaKey: evt.metaKey,
-    altKey: evt.altKey,
-    shiftKey: evt.shiftKey,
-    ctrlKey: evt.ctrlKey,
-    key: evt.key,
-    keyCode: evt.keyCode,
-    location: location,
-  };
-
+  const data = packageFromEvent(evt, location);
   console.debug('Key', data);
   return;
 
@@ -101,10 +92,25 @@ function onDisplayHistoryChanged(evt) {
   }
 }
 
+function packageFromEvent(evt, location = null) {
+  return {
+    metaKey: evt.metaKey,
+    altKey: evt.altKey,
+    shiftKey: evt.shiftKey,
+    ctrlKey: evt.ctrlKey,
+    key: evt.key,
+    keyCode: evt.keyCode,
+    location: location,
+  };
+}
+
 const textInput = document.getElementById('input-box');
 textInput.addEventListener("keydown", (evt) => {
 	if (evt.key === 'Enter') {
 		onSend();
+	}
+	if (evt.key === 'Backspace') {
+		socket.emit('keystroke', packageFromEvent(evt));
 	}
 });
 

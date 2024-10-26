@@ -2,20 +2,19 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-        <title>Key Mime Pi</title>
+    	<meta charset="utf-8">
+        <title>Pi Keyboard</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="stylesheet" type="text/css" href="/css/style.css">
-        <link href="https://fonts.googleapis.com/css2?family=Lora&family=Nunito&display=swap" rel="stylesheet">
     </head>
     <body>
       <div class="container">
-        <h1>Key Mime Pi</h1>
-        <p class="subtitle">The Raspberry Pi Keyboard Mimic</p>
-        <div>
-          <p class="status">Status: <span id="status-connected">Connected</span><span id="status-disconnected">Disconnected</span></p>
-          <p id="disconnect-reason"></p>
-        </div>
-        <p id="instructions">Begin typing to send keystrokes to your Raspberry Pi</p>
+        <h1>Pi Keyboard</h1>
+	<textarea id="input-box" rows="10"></textarea>
+
+	<button id="send" type="button">Send</button>
+
+	<p id="instructions">Type in the input box to send messages</p>
         <div class="container keystroke-history">
           <h2>Keystroke history</h2>
           <div id="recent-keys"></div>
@@ -24,9 +23,10 @@
             <label for="display-history-checkbox">Show history</label>
           </form>
         </div>
-        <p>
-          Key Mime Pi is released under the <a href="https://opensource.org/licenses/MIT">MIT License</a>.
-          <a href="https://github.com/mtlynch/key-mime-pi">Source code</a> is available.</p>
+        <div>
+          <p class="status">Status: <span id="status-connected">Connected</span><span id="status-disconnected">Disconnected</span></p>
+          <p id="disconnect-reason"></p>
+        </div>
       </div>
 
       <script src="/third-party/socket.io/2.3.0/socket.io.js"></script>

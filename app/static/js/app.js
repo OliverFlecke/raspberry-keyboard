@@ -63,7 +63,7 @@ function onKeyDown(evt) {
     return;
   }
   if (!evt.metaKey) {
-    evt.preventDefault();
+//    evt.preventDefault();
     addKeyCard(evt.key, keystrokeId);
     processingQueue.push(keystrokeId);
     keystrokeId++;
@@ -76,7 +76,7 @@ function onKeyDown(evt) {
     location = 'right';
   }
   
-  socket.emit('keystroke', {
+  const data = {
     metaKey: evt.metaKey,
     altKey: evt.altKey,
     shiftKey: evt.shiftKey,
@@ -84,7 +84,12 @@ function onKeyDown(evt) {
     key: evt.key,
     keyCode: evt.keyCode,
     location: location,
-  });
+  };
+
+  console.debug('Key', data);
+  return;
+
+  socket.emit('keystroke', data);
 }
 
 function onDisplayHistoryChanged(evt) {
@@ -96,6 +101,51 @@ function onDisplayHistoryChanged(evt) {
   }
 }
 
+const textInput = document.getElementById('input-box');
+textInput.addEventListener("keydown", (evt) => {
+	if (evt.key === 'Enter') {
+		onSend();
+	}
+});
+
+/**
+ * @param c character
+ * @returns number for the keycode
+ */
+function getKeyCode(c) {
+	switch (c) {
+		case '?': return 191;
+		case ',': return 188;
+		case '.': return 190;
+		default: return c.toUpperCase().charCodeAt();
+	}
+}
+function isShift(c) {
+	switch (c) {
+		case '?': return true;
+		default: return 'A'.charCodeAt() <= c.charCodeAt() && c.charCodeAt() <= 'Z'.charCodeAt();
+	}
+}
+
+function toPackage(c) {
+	return {
+		key: c,
+		keyCode: getKeyCode(c), 
+		shiftKey: isShift(c),
+		altKey: false,
+		ctrlKey: false,
+		location: null,
+		metaKey: false,
+	}
+}
+
+function onSend() {
+	const text = textInput.value;
+	text.split('').forEach(c => socket.emit('keystroke', toPackage(c)));
+	textInput.value = '';	
+}
+
+document.getElementById('send').addEventListener("click", onSend);
 document.querySelector('body').addEventListener("keydown", onKeyDown);
 document.getElementById('display-history-checkbox').addEventListener("change", onDisplayHistoryChanged);
 socket.on('connect', onSocketConnect);
@@ -103,3 +153,4 @@ socket.on('disconnect', onSocketDisconnect);
 socket.on('keystroke-received', (data) => {
   updateKeyStatus(processingQueue.shift(), data.success);
 });
+

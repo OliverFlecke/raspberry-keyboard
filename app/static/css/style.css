@@ -1,10 +1,19 @@
+* {
+	box-sizing: border-box;
+}
+
 .container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   text-align: center;
-  max-width: 80%;
-  margin: 0 auto;
+  max-width: 100%;
+  gap: 1rem;
+}
+
+button {
+	cursor: pointer;
+	padding: 1rem;
 }
 
 p {
@@ -17,11 +26,6 @@ h1, h2, h3, h4 {
 
 h1 {
   margin-bottom: 1rem;
-}
-
-.subtitle {
-  font-style: italic;
-  font-size: 1.3em;
 }
 
 .status {
@@ -54,7 +58,8 @@ h1 {
 }
 
 .keystroke-history {
-  display: flex;
+  display: none;
+  /* display: flex; */
   flex-direction: column;
   justify-content: flex-start;
   background-color: rgb(252, 236, 223);

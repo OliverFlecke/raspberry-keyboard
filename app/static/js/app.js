@@ -107,7 +107,7 @@ function packageFromEvent(evt, location = null) {
 const textInput = document.getElementById('input-box');
 textInput.addEventListener("keydown", (evt) => {
 	if (evt.key === 'Enter') {
-		onSend();
+//		onSend();
 	}
 	if (evt.key === 'Backspace') {
 		socket.emit('keystroke', packageFromEvent(evt));
@@ -120,6 +120,7 @@ textInput.addEventListener("keydown", (evt) => {
  */
 function getKeyCode(c) {
 	switch (c) {
+		case '\n': return 13;
 		case '=':
 		case '+':
 			return 61;

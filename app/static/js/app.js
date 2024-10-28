@@ -120,6 +120,18 @@ textInput.addEventListener("keydown", (evt) => {
  */
 function getKeyCode(c) {
 	switch (c) {
+		case '=':
+		case '+':
+			return 61;
+		case `'`: 
+		case `"`: 
+			return 222;
+
+		case '/': return 191;
+		case '-': return 173;
+		case ';': 
+		case ':': 
+			return 59;
 		case '!': return 49;
 		case '?': return 191;
 		case ',': return 188;
@@ -129,8 +141,18 @@ function getKeyCode(c) {
 }
 function isShift(c) {
 	switch (c) {
-		case '!': return true;
-		case '?': return true;
+		case '=':
+		case '/':
+		case `'`:
+		case ':':
+		case '-':
+			return false;
+		case '+':
+		case `"`:
+		case ';":
+		case '!': 
+		case '?': 
+			return true;
 		default: return 'A'.charCodeAt() <= c.charCodeAt() && c.charCodeAt() <= 'Z'.charCodeAt();
 	}
 }

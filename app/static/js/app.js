@@ -124,7 +124,7 @@ function getKeyCode(c) {
 		case '+':
 			return 61;
 		case `'`: 
-		case `"`: 
+		case '"': 
 			return 222;
 
 		case '/': return 191;
@@ -136,6 +136,8 @@ function getKeyCode(c) {
 		case '?': return 191;
 		case ',': return 188;
 		case '.': return 190;
+		case '(': return 57;
+		case ')': return 48;
 		default: return c.toUpperCase().charCodeAt();
 	}
 }
@@ -144,12 +146,14 @@ function isShift(c) {
 		case '=':
 		case '/':
 		case `'`:
-		case ':':
+		case ';':
 		case '-':
 			return false;
+		case '(':
+		case ')':
 		case '+':
-		case `"`:
-		case ';":
+		case '"':
+		case ':':
 		case '!': 
 		case '?': 
 			return true;

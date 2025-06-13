@@ -126,7 +126,12 @@ function getKeyCode(c) {
 			return 61;
 		case '’': 
 		case ']':
+		case '}': 
 			return 221;
+		case '[':
+		case '{': 
+			return 219;
+
 		case `'`: 
 		case '"': 
 			return 222;
@@ -136,34 +141,30 @@ function getKeyCode(c) {
 		case ';': 
 		case ':': 
 			return 59;
-		case '!': return 49;
 		case '?': return 191;
 		case ',': return 188;
 		case '.': return 190;
-		case '(': return 57;
+		case '_': return 173;
+
 		case ')': return 48;
+		case '!': return 49;
+		case '@': return 50;
+		case '#': return 51;
+		case '$': return 52;
+		case '%': return 53;
+		case '^': return 54;
+		case '&': return 55;
+		case '*': return 56;
+		case '(': return 57;
+
 		default: return c.toUpperCase().charCodeAt();
 	}
 }
 function isShift(c) {
-	switch (c) {
-		case '=':
-		case '/':
-		case `'`:
-		case ';':
-		case '-':
-			return false;
-		case '’':
-		case '(':
-		case ')':
-		case '+':
-		case '"':
-		case ':':
-		case '!': 
-		case '?': 
-			return true;
-		default: return 'A'.charCodeAt() <= c.charCodeAt() && c.charCodeAt() <= 'Z'.charCodeAt();
-	}
+	const shifts = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '’', '?', '+', ':', '"', '|', '_', '{', '}'];
+
+	return shifts.some(x => x === c)
+		|| ('A'.charCodeAt() <= c.charCodeAt() && c.charCodeAt() <= 'Z'.charCodeAt());
 }
 
 function isAlt(c) {

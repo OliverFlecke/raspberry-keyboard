@@ -33,6 +33,10 @@ h1 {
   font-size: 1.4em;
 }
 
+#input-box {
+  font-size: 1.3rem;
+}
+
 #instructions {
   margin: 2rem;
   padding: 1rem;

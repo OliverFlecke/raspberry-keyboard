@@ -124,6 +124,9 @@ function getKeyCode(c) {
 		case '=':
 		case '+':
 			return 61;
+		case '’': 
+		case ']':
+			return 221;
 		case `'`: 
 		case '"': 
 			return 222;
@@ -150,6 +153,7 @@ function isShift(c) {
 		case ';':
 		case '-':
 			return false;
+		case '’':
 		case '(':
 		case ')':
 		case '+':
@@ -162,12 +166,19 @@ function isShift(c) {
 	}
 }
 
+function isAlt(c) {
+	switch (c) {
+		case '’': return true;
+		default: return false;
+	}
+}
+
 function toPackage(c) {
 	return {
 		key: c,
 		keyCode: getKeyCode(c), 
 		shiftKey: isShift(c),
-		altKey: false,
+		altKey: isAlt(c), 
 		ctrlKey: false,
 		location: null,
 		metaKey: false,
@@ -176,7 +187,11 @@ function toPackage(c) {
 
 function onSend() {
 	const text = textInput.value;
-	text.split('').forEach(c => socket.emit('keystroke', toPackage(c)));
+	text.split('').forEach(c => {
+		const p = toPackage(c);
+		console.debug('sending', p);
+		socket.emit('keystroke', p)
+	});
 	textInput.value = '';	
 }
 

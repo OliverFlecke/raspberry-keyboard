@@ -1,0 +1,16 @@
+[Unit]
+Description=Raspberry Pi Web Keyboard Service
+After=network.target
+
+[Service]
+Type=simple
+User=oliver
+Group=root
+SupplementaryGroups=hid
+WorkingDirectory=/home/oliver/raspberry-keyboard/app
+ExecStart=/home/oliver/.local/share/mise/installs/python/3.10/bin/python /home/oliver/raspberry-keyboard/app/main.py
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

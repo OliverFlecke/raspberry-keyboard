@@ -1,0 +1,12 @@
+[Unit]
+Description=USB HID Keyboard Gadget Setup
+After=network.target local-fs.target
+Before=raspberry-keyboard.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/usb_keyboard_setup
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
